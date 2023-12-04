@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Character Sheet Creator</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <form action="/submit_character" method="post">
+        <input type="text" name="character_name" placeholder="Character Name">
+        <!-- Add other fields as necessary -->
+        <input type="submit" value="Save Character">
+    </form>
+
+    <button id="preview-pdf">Preview PDF</button>
+    <button id="export-pdf">Export to PDF</button>
+
+    <div id="character-preview"></div>
+
+    <script src="{{ url_for('static', filename='js/character_sheet.js') }}"></script>
+</body>
+</html>
