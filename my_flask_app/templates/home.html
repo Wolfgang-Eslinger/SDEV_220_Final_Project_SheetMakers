@@ -1,13 +1,53 @@
 
 <!DOCTYPE html>
+
 <html>
-<head>
-    <title>Character Sheet Creator</title>
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
-    <!-- Include jQuery before other scripts for dependency management -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Ensure jsPDF is loaded before our JavaScript files because it hates you -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+   <head>
+
+       <title>Character Sheet Creator</title>
+
+       <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+       <script>
+
+           function loadScript(src, callback) {
+
+               var script = document.createElement('script');
+
+               script.src = src;
+
+               script.onload = callback;
+
+               document.head.appendChild(script);
+
+           }
+
+           loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js', function() {
+
+               window.jsPDF = window.jspdf.jsPDF;
+
+               // Load your other scripts that use jsPDF here
+
+           });
+           loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.js', function() {
+
+            window.pdfjsLib = window.pdfjsLib;
+
+            loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.worker.js', function() {
+
+                // pdfjsLib is now loaded and can be used
+
+                // Load your other scripts that use pdfjsLib here
+
+            });
+
+            });
+
+       </script>
+
 </head>
 <body>
     <form action="/submit_character" method="post">

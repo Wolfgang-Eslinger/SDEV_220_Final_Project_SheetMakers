@@ -1,5 +1,5 @@
 function generate_pdf_data() {
-    const doc = new jsPDF();
+    const doc = new window.jspdf.jsPDF();
 
     // Retrieve form values
     const characterName = document.querySelector('[name="character_name"]').value;

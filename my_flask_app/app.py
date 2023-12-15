@@ -1,5 +1,5 @@
 
-from flask import Flask, jsonify, render_template, redirect, url_for, flash, request, send_from_directory
+from flask import Flask, jsonify, render_template, redirect, url_for, flash, request, send_from_directory, current_app
 from flask_sqlalchemy import SQLAlchemy
 from models import Character
 import os
@@ -49,20 +49,42 @@ def home():
 
 @app.route('/submit_character', methods=['POST'])
 def submit_character():
-    # Implement logic to process the character data and save it
     try:
-        # Process and save character data
-        # For now, just a placeholder to indicate successful operation
+        # Extracting data from the form
+        name = request.form['character_name']
+        race = request.form['race']
+        class_ = request.form['class']
+        strength = request.form['strength']
+        dexterity = request.form['dexterity']
+        constitution = request.form['constitution']
+        intelligence = request.form['intelligence']
+        wisdom = request.form['wisdom']
+        charisma = request.form['charisma']
+        personality_traits = request.form['personality_traits']
+        ideals = request.form['ideals']
+        bonds = request.form['bonds']
+        equipment = request.form['equipment']
+        gold = request.form['gold']
+
+        # Creating a new Character object with the form data
+        new_character = Character(name=name, race=race, class_=class_, strength=strength,
+                                  dexterity=dexterity, constitution=constitution, 
+                                  intelligence=intelligence, wisdom=wisdom, charisma=charisma,
+                                  personality_traits=personality_traits, ideals=ideals, 
+                                  bonds=bonds, equipment=equipment, gold=gold)
+        db.session.add(new_character)
+        db.session.commit()
         flash('Character submitted successfully!', 'success')
     except Exception as e:
         flash(str(e), 'danger')
     return redirect(url_for('home'))
 
+
 @app.route('/export_pdf', methods=['POST'])
 def export_pdf():
     app.logger.info('Export PDF request received')
     try:
-        from pdf_generator import generate_report
+        from reports.pdf_generator import generate_report
         data = request.json
         app.logger.info('Data for PDF generation: %s', data)
         pdf_filename = generate_report(data)
@@ -79,9 +101,28 @@ def export_pdf():
 @app.route('/preview_character', methods=['POST'])
 def preview_character():
     data = request.json
-    # Here, you can add logic to process the character data and return a response
-    return jsonify(data)  # For now, simply returning the received data
 
+    try:
+        # Example of simple validation
+        if 'name' not in data or 'race' not in data:
+            return jsonify({'error': 'Missing required fields'}), 400
+
+        # Example of data processing
+        processed_data = process_character_data(data)
+
+        # Example of logging
+        current_app.logger.info('Processed character data for preview')
+
+        return jsonify(processed_data)
+    except Exception as e:
+        current_app.logger.error(f'Error processing character data: {e}')
+        return jsonify({'error': str(e)}), 500
+    
+
+def process_character_data(data):
+    # Placeholder for your data processing logic
+    # For example, you might modify some values or calculate additional fields
+    return data
 
 
 if __name__ == '__main__':

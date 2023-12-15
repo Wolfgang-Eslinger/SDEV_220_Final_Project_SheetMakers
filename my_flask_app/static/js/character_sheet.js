@@ -1,7 +1,7 @@
 
 // Send data to backend for preview
 function previewCharacter() {
-    console.log('Preview character function called.'); // Logging for debugging
+    console.log(characterData); // Logging for debugging
     $.ajax({
         url: '/preview_character',
         type: 'post',
@@ -34,7 +34,7 @@ document.getElementById('preview-pdf').addEventListener('click', function() {
 });
 
 document.getElementById('export-pdf').addEventListener('click', function() {
-    console.log('Export PDF button clicked.'); // Logging for debugging
+    console.log(characterData); // Logging for debugging
     // Logic to export PDF
     var characterData = {
         name: $('#character_name').val(),
