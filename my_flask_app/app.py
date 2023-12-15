@@ -1,12 +1,15 @@
 
-from flask import Flask, render_template, redirect, url_for, flash, request, send_from_directory
+from flask import Flask, jsonify, render_template, redirect, url_for, flash, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from models import Character
+import os
+import logging
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SECRET_KEY'] = 'D&D'
 db = SQLAlchemy(app)
+logging.basicConfig(level=logging.INFO)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -28,12 +31,13 @@ def home():
         ideals = request.form['ideals']
         bonds = request.form['bonds']
         equipment = request.form['equipment']
+        gold = request.form['gold']
 
         new_character = Character(name=name, race=race, class_=class_, strength=strength, 
                                 dexterity=dexterity, constitution=constitution, 
                                 intelligence=intelligence, wisdom=wisdom, charisma=charisma, 
                                 personality_traits=personality_traits, ideals=ideals, 
-                                bonds=bonds, equipment=equipment)
+                                bonds=bonds, equipment=equipment, gold=gold)
         db.session.add(new_character)
         db.session.commit()
         flash('Character successfully created', 'success')
@@ -54,12 +58,31 @@ def submit_character():
         flash(str(e), 'danger')
     return redirect(url_for('home'))
 
-@app.route('/export_pdf/<int:character_id>')
-def export_pdf(character_id):
-    # Assuming the pdf_generator.py script is properly set up to generate a PDF
-    # The script is located under the "reports" directory
-    pdf_path = f'my_flask_app/reports/{character_id}.pdf'  # Update with actual logic to generate/get the PDF
-    return send_from_directory(directory='my_flask_app/reports', filename=f'{character_id}.pdf')
+@app.route('/export_pdf', methods=['POST'])
+def export_pdf():
+    app.logger.info('Export PDF request received')
+    try:
+        from pdf_generator import generate_report
+        data = request.json
+        app.logger.info('Data for PDF generation: %s', data)
+        pdf_filename = generate_report(data)
+        app.logger.info('PDF generated successfully')
+        return send_from_directory(directory=os.path.dirname(pdf_filename),
+                                   filename=os.path.basename(pdf_filename),
+                                   as_attachment=True)
+    except Exception as e:
+        app.logger.error('Error generating PDF: %s', e)
+        return jsonify({'error': str(e)}), 500
+
+
+
+@app.route('/preview_character', methods=['POST'])
+def preview_character():
+    data = request.json
+    # Here, you can add logic to process the character data and return a response
+    return jsonify(data)  # For now, simply returning the received data
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

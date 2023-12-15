@@ -1,9 +1,12 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Character Sheet Creator</title>
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
-    <script src="{{ url_for('static', filename='js/pdf.js') }}"></script>
+    <!-- Include jQuery before other scripts for dependency management -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Ensure jsPDF is loaded before our JavaScript files because it hates you -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
 <body>
@@ -22,6 +25,7 @@
             <option value="Half-Orc">Half-Orc</option>
             <option value="Human">Human</option>
             <option value="Tiefling">Tiefling</option>
+            <!-- Other races here... -->
         </select>
 
         <!-- Class Dropdown -->
@@ -66,16 +70,30 @@
             <button type="button" id="add-spell-button">Add Another Spell</button>
         </div>
 
+        <!-- Gold Field -->
+        <input type="number" name="gold" placeholder="Gold" min="0" required>
+
         <input type="submit" value="Save Character">
     </form>
 
-    <button id="preview-pdf">Preview PDF</button>
-    <button id="export-pdf">Export to PDF</button>
-
-    <div id="character-preview"></div>
-
-    <!-- Link to your JavaScript file -->
-    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/pdf.js') }}"></script>
-</body>
-</html>
+        <!-- Add type="button" to prevent form submission on button click -->
+        <button id="preview-pdf" type="button">Preview PDF</button>
+        <button id="export-pdf" type="button">Export to PDF</button>
+    
+        <div id="character-preview"></div>
+    
+        <!-- Place JavaScript file links at the end of the body to ensure they are loaded after the DOM is ready -->
+        <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/character_sheet.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/pdf.js') }}"></script>
+        
+        <script>
+            // Ensure event listeners are attached after the DOM is fully loaded
+            document.addEventListener('DOMContentLoaded', (event) => {
+                // The code to attach event listeners will be in the other JS files
+                // This ensures that the DOM elements are available before attaching listeners tho so don't worry about it
+            });
+        </script>
+    </body>
+    </html>
+    

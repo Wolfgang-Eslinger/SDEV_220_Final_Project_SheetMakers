@@ -1,5 +1,4 @@
-  function generate_pdf_data() {
-    const { jsPDF } = window.jspdf;
+function generate_pdf_data() {
     const doc = new jsPDF();
 
     // Retrieve form values
@@ -44,33 +43,28 @@
     doc.text(`Bonds: ${bonds}`, 10, y);
     y += 10;
     doc.text(`Equipment: ${equipment}`, 10, y);
-    // y += 10;
 
-     // Gather spell details
-     const spells = [];
-     const spellInputs = document.querySelectorAll('#spells-container .spell-input');
-     spellInputs.forEach((spellDiv) => {
-         const spellName = spellDiv.querySelector('[name="spells[]"]').value;
-         const spellLevel = spellDiv.querySelector('[name="spell_levels[]"]').value;
-         const spellDescription = spellDiv.querySelector('[name="spell_descriptions[]"]').value;
-         spells.push({ spellName, spellLevel, spellDescription });
-     });
- 
-     // Add spells to the PDF
-     spells.forEach((spell) => {
-         y += 10;
-         doc.text(`Spell Name: ${spell.spellName}`, 10, y);
-         y += 10;
-         doc.text(`Spell Level: ${spell.spellLevel}`, 10, y);
-         y += 10;
-         doc.text(`Description: ${spell.spellDescription}`, 10, y);
-         y += 10;
-     });
+    // Gather spell details
+    const spells = [];
+    const spellInputs = document.querySelectorAll('#spells-container .spell-input');
+    spellInputs.forEach((spellDiv) => {
+        const spellName = spellDiv.querySelector('[name="spells[]"]').value;
+        const spellLevel = spellDiv.querySelector('[name="spell_levels[]"]').value;
+        const spellDescription = spellDiv.querySelector('[name="spell_descriptions[]"]').value;
+        spells.push({ spellName, spellLevel, spellDescription });
+    });
 
-     
-    // Finalize the PDF. The 'arraybuffer' output type is used to get the binary data
-    const pdfData = doc.output('arraybuffer');
+    // Add spells to the PDF
+    spells.forEach((spell) => {
+        y += 10;
+        doc.text(`Spell Name: ${spell.spellName}`, 10, y);
+        y += 10;
+        doc.text(`Spell Level: ${spell.spellLevel}`, 10, y);
+        y += 10;
+        doc.text(`Description: ${spell.spellDescription}`, 10, y);
+        y += 10;
+    });
 
-    // Convert the ArrayBuffer to a Uint8Array
-    return new Uint8Array(pdfData);
+    // Save the generated PDF to the user's computer
+    doc.save('generated_character_sheet.pdf');
 }
