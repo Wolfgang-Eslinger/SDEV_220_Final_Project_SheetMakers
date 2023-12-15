@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Preview</title>
+</head>
+<body>
+    <h1>Character Preview</h1>
+    <table>
+        <tr>
+            <th>Character Name:</th>
+            <td>{{ data.name }}</td>
+        </tr>
+        <tr>
+            <th>Level:</th>
+            <td>{{ data.level }}</td>
+        </tr>
+        <tr>
+            <th>Race:</th>
+            <td>{{ data.race }}</td>
+        </tr>
+        <tr>
+            <th>Class:</th>
+            <td>{{ data.class }}</td>
+        </tr>
+    </table>
+    <br>
+    <form action="{{ url_for('add_character') }}" method="post">
+        <input type="hidden" name="name" value="{{ data.name }}">
+        <input type="hidden" name="level" value="{{ data.level }}">
+        <input type="hidden" name="race" value="{{ data.race }}">
+        <input type="hidden" name="class" value="{{ data.class }}">
+        <input type="submit" value="Add Character">
+    </form>
+</body>
+</html>

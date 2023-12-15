@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character List</title>
+</head>
+<body>
+    <h1>Character List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Level</th>
+                <th>Race</th>
+                <th>Class</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for character in characters %}
+            <tr>
+                <td>{{ character.name }}</td>
+                <td>{{ character.level }}</td>
+                <td>{{ character.race }}</td>
+                <td>{{ character.class }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <form action="{{ url_for('submit_character') }}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <label for="level">Level:</label>
+        <input type="text" id="level" name="level">
+        <label for="race">Race:</label>
+        <input type="text" id="race" name="race">
+        <label for="class">Class:</label>
+        <input type="text" id="class" name="class">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Character</title>
+</head>
+<body>
+    <h1>Submit Character</h1>
+    <form action="{{ url_for('submit_character') }}" method="post">
+        <label for="name">Character Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="level">Character Level:</label>
+        <input type="number" id="level" name="level" required>
+        <br>
+        <label for="race">Character Race:</label>
+        <input type="text" id="race" name="race" required>
+        <br>
+        <label for="class">Character Class:</label>
+        <input type="text" id="class" name="class" required>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
