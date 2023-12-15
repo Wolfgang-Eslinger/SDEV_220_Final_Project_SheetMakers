@@ -10,3 +10,14 @@ class Character(db.Model):
 
     def __repr__(self):
         return f"<Character {self.name}>"
+    # Additional fields based on updated HTML structure
+    strength = db.Column(db.Integer)
+    dexterity = db.Column(db.Integer)
+    constitution = db.Column(db.Integer)
+    intelligence = db.Column(db.Integer)
+    wisdom = db.Column(db.Integer)
+    charisma = db.Column(db.Integer)
+    personality_traits = db.Column(db.String(250))
+    ideals = db.Column(db.String(250))
+    bonds = db.Column(db.String(250))
+    equipment = db.Column(db.String(500))

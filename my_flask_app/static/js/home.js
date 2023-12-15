@@ -77,3 +77,31 @@ document.getElementById('preview-pdf').addEventListener('click', async () => {
     // Append the canvas element to the 'character-preview' div
     document.getElementById('character-preview').appendChild(canvas);
 });
+// Add a new spell input field with a removal option
+function addSpellField() {
+    var container = document.getElementById('spells-container');
+    var newSpellInput = document.createElement('div');
+    newSpellInput.className = 'spell-input';
+    newSpellInput.innerHTML = `
+        <input type="text" name="spells[]" placeholder="Spell Name">
+        <select name="spell_levels[]">
+            <option value="">Select Spell Level</option>
+            <option value="Cantrip">Cantrip</option>
+            <option value="1">Level 1</option>
+            <!-- Add other levels as needed -->
+        </select>
+        <textarea name="spell_descriptions[]" placeholder="Spell Description"></textarea>
+        <button type="button" class="remove-spell" onclick="removeSpellField(event)">Remove</button>
+    `;
+    container.appendChild(newSpellInput);
+}
+
+// Mock implementation of the generate_pdf_data function
+function generate_pdf_data() {
+    // Since the actual PDF generation logic is not provided, this is a placeholder
+    // This would be replaced by the actual logic to generate PDF data, potentially involving
+    // AJAX calls to the server, or the use of a client-side PDF library.
+    console.log('PDF data generation logic goes here.');
+    // Return mock PDF data (empty for this placeholder)
+    return new Uint8Array();
+}
