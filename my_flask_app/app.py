@@ -32,3 +32,13 @@ def submit_character():
     # Extract and process form data
     # Implement your logic here
     return 'Character data received'
+
+@app.route('/create_character')
+def create_character():
+    return render_template('character_creation.html')
+
+@app.route('/character_sheet/<int:character_id>')
+def character_sheet(character_id):
+    # Fetch character data based on character_id
+    character_data = get_character_data(character_id)  # Replace with actual data retrieval logic
+    return render_template('character_sheet.html', character_data=character_data)

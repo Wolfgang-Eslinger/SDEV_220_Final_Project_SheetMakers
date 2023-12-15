@@ -10,3 +10,11 @@ form {
 input[type="text"], input[type="submit"], button {
     margin: 10px 0;
 }
+
+.character-sheet {
+    /* Styles for the character sheet */
+}
+
+.export-pdf-btn {
+    /* Styles for the PDF export button */
+}

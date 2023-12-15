@@ -7,7 +7,100 @@
 <body>
     <form action="/submit_character" method="post">
         <input type="text" name="character_name" placeholder="Character Name">
-        <!-- Add other fields as necessary -->
+
+        <!-- Class Dropdown -->
+        <select name="class" id="class-select" onchange="toggleSpellcasting()">
+            <option value="">Select Class</option>
+            <option value="Barbarian">Barbarian</option>
+            <option value="Bard">Bard</option>
+            <option value="Cleric">Cleric</option>
+            <option value="Druid">Druid</option>
+            <option value="Fighter">Fighter</option>
+            <option value="Monk">Monk</option>
+            <option value="Paladin">Paladin</option>
+            <option value="Ranger">Ranger</option>
+            <option value="Rogue">Rogue</option>
+            <option value="Sorcerer">Sorcerer</option>
+            <option value="Warlock">Warlock</option>
+            <option value="Wizard">Wizard</option>
+        </select>
+        
+
+        <!-- Race Dropdown -->
+        <select name="race">
+            <option value="">Select Race</option>
+            <option value="Dragonborn">Dragonborn</option>
+            <option value="Dwarf">Dwarf</option>
+            <option value="Elf">Elf</option>
+            <option value="Gnome">Gnome</option>
+            <option value="Half-Elf">Half-Elf</option>
+            <option value="Halfling">Halfling</option>
+            <option value="Half-Orc">Half-Orc</option>
+            <option value="Human">Human</option>
+            <option value="Tiefling">Tiefling</option>
+        </select>
+        
+
+        <!-- Stats Input -->
+        <input type="number" name="strength" placeholder="Strength" min="2" max="20">
+        <input type="number" name="dexterity" placeholder="Dexterity" min="2" max="20">
+        <input type="number" name="constitution" placeholder="Constitution" min="2" max="20">
+        <input type="number" name="intelligence" placeholder="Intelligence" min="2" max="20">
+        <input type="number" name="wisdom" placeholder="Wisdom" min="2" max="20">
+        <input type="number" name="charisma" placeholder="Charisma" min="2" max="20">
+        
+        
+
+        <!-- Personality Traits -->
+        <input type="text" name="personality_traits" placeholder="Personality Traits">
+
+        <!-- Ideals -->
+        <input type="text" name="ideals" placeholder="Ideals">
+
+        <!-- Bonds -->
+        <input type="text" name="bonds" placeholder="Bonds">
+
+        <!-- Equipment -->
+        <textarea name="equipment" placeholder="Equipment"></textarea>
+
+<!-- Spellcasting Section (Initially hidden) -->
+<div id="spellcasting-section" style="display: none;">
+    <h3>Spells</h3>
+    <div id="spells-container">
+        <div class="spell-input">
+            <input type="text" name="spells[]" placeholder="Spell Name">
+            <select name="spell_levels[]">
+                <option value="">Select Spell Level</option>
+                <option value="Cantrip">Cantrip</option>
+                <option value="1">Level 1</option>
+                <!-- Add other levels as needed -->
+            </select>
+            <textarea name="spell_descriptions[]" placeholder="Spell Description"></textarea>
+        </div>
+    </div>
+    <button type="button" onclick="addSpellField()">Add Another Spell</button>
+</div>
+
+<script>
+    function addSpellField() {
+        var container = document.getElementById('spells-container');
+        var newSpellInput = document.createElement('div');
+        newSpellInput.className = 'spell-input';
+        newSpellInput.innerHTML = `
+            <input type="text" name="spells[]" placeholder="Spell Name">
+            <select name="spell_levels[]">
+                <option value="">Select Spell Level</option>
+                <option value="Cantrip">Cantrip</option>
+                <option value="1">Level 1</option>
+                <!-- Add other levels as needed -->
+            </select>
+            <textarea name="spell_descriptions[]" placeholder="Spell Description"></textarea>
+        `;
+        container.appendChild(newSpellInput);
+    }
+</script>
+
+
         <input type="submit" value="Save Character">
     </form>
 
@@ -17,5 +110,17 @@
     <div id="character-preview"></div>
 
     <script src="{{ url_for('static', filename='js/character_sheet.js') }}"></script>
+    <script>
+        function toggleSpellcasting() {
+            var classSelect = document.getElementById('class-select');
+            var spellSection = document.getElementById('spellcasting-section');
+            // Assuming 'Wizard' is a spellcasting class
+            if (classSelect.value === 'Wizard') {
+                spellSection.style.display = 'block';
+            } else {
+                spellSection.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>

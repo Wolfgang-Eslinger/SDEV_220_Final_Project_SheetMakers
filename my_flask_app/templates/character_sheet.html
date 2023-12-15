@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="character-sheet">
+    <h2>{{ character_data.name }}</h2>
+    <p><strong>Race:</strong> {{ character_data.race }}</p>
+    <p><strong>Class:</strong> {{ character_data.class }}</p>
+
+    <!-- Abilities -->
+    <h3>Abilities</h3>
+    <ul>
+        <li>Strength: {{ character_data.abilities.strength }}</li>
+        <li>Dexterity: {{ character_data.abilities.dexterity }}</li>
+        <li>Constitution: {{ character_data.abilities.constitution }}</li>
+        <li>Intelligence: {{ character_data.abilities.intelligence }}</li>
+        <li>Wisdom: {{ character_data.abilities.wisdom }}</li>
+        <li>Charisma: {{ character_data.abilities.charisma }}</li>
+    </ul>
+
+    <!-- Skills -->
+    <h3>Skills</h3>
+    <ul>
+        <!-- Assuming skills are stored as a list or dictionary -->
+        {% for skill, value in character_data.skills.items() %}
+        <li>{{ skill }}: {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Equipment -->
+    <h3>Equipment</h3>
+    <ul>
+        {% for item in character_data.equipment %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Export to PDF link -->
+    <a href="{{ url_for('export_pdf', character_id=character_data.id) }}" class="export-pdf-btn" target="_blank">Export to PDF</a>
+</div>
+
+{% endblock %}

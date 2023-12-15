@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your App Name</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/your_stylesheet.css') }}">
+    <!-- Add any other common head elements here -->
+</head>
+<body>
+    <header>
+        <!-- Your navigation bar, logo, etc. -->
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+        <!-- Your footer content -->
+    </footer>
+</body>
+</html>
