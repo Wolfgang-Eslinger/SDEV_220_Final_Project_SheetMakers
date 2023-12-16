@@ -3,7 +3,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
 def generate_report(data):
-    character_name = data['character_name']
+    character_name = data['name']
     race = data['race']
     class_ = data['class']
     strength = data['strength']
@@ -17,6 +17,10 @@ def generate_report(data):
     bonds = data['bonds']
     equipment = data['equipment']
     gold = data['gold']
+        # new fields for CurrentAdventure and InventoryItem
+    adventure_title = data.get('adventure_title', 'N/A')
+    item_name = data.get('item_name', 'N/A')
+    item_type = data.get('item_type', 'N/A')
     
     # Create a new PDF document
     c = canvas.Canvas("character_report.pdf", pagesize=letter)
@@ -36,6 +40,9 @@ def generate_report(data):
     c.drawString(100, 635, f"Bonds: {bonds}")
     c.drawString(100, 620, f"Equipment: {equipment}")
     c.drawString(100, 605, f"Gold: {gold}")
+       # Add adventure and inventory item data to the PDF
+    c.drawString(100, 750, f"Adventure: {adventure_title}")
+    c.drawString(100, 735, f"Item: {item_name} ({item_type})")
 
     # Save the PDF document
     c.save()

@@ -1,20 +1,65 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+    font-family: 'Enchanted Land', cursive;
+    background-color: #0a0a0a;
+    color: #f4d442;
+    background-image: url('parchment-background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
 }
 
-form {
-    margin-bottom: 20px;
+h2, h3, .form-label {
+    color: #c9b458;
+    text-shadow: 1px 1px 2px #000;
 }
 
-input[type="text"], input[type="submit"], button {
-    margin: 10px 0;
+.character-sheet, .home-form {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: rgba(58, 58, 58, 0.8);
+    border: 3px solid #d3af37;
+    border-radius: 15px;
+    box-shadow: 0 0 20px 5px #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
-.character-sheet {
-    /* Styles for the character sheet */
+input[type="text"], input[type="number"], select, input[type="date"], .export-pdf-btn {
+    width: 25%; 
+    padding: 10px;
+    margin: 5px auto; 
+    display: block; 
+    background-color: #0a0a0a;
+    color: #f4d442;
+    border: 2px solid #d3af37;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
-.export-pdf-btn {
-    /* Styles for the PDF export button */
+
+button, .export-pdf-btn {
+    font-family: 'Enchanted Land', cursive;
+    padding: 15px 25px;
+    margin-top: 30px;
+    background-color: #d3af37;
+    color: #0a0a0a;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-shadow: none;
+    cursor: pointer;
+}
+
+button:hover, .export-pdf-btn:hover, button:focus, .export-pdf-btn:focus {
+    background-color: #0a0a0a;
+    color: #f4d442;
+    box-shadow: 0 0 10px #f4d442;
+}
+
+@media (max-width: 768px) {
+    input[type="text"], input[type="number"], select, input[type="date"], .export-pdf-btn {
+        width: 50%; /* Slightly larger width for smaller screens */
+    }
 }

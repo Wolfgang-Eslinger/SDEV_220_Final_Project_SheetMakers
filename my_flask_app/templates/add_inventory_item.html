@@ -1,0 +1,13 @@
+<!-- Extends base layout -->
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+    <!-- Form fields for inventory item details -->
+    <input type="text" name="name" placeholder="Item Name">
+    <input type="text" name="item_type" placeholder="Item Type">
+    <input type="number" name="value" placeholder="Value">
+    <textarea name="properties" placeholder="Properties"></textarea>
+    <button type="submit">Add Item</button>
+</form>
+{% endblock %}

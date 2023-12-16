@@ -1,15 +1,19 @@
 
 from flask import Flask, jsonify, render_template, redirect, url_for, flash, request, send_from_directory, current_app
 from flask_sqlalchemy import SQLAlchemy
-from models import Character
+from models import Character, CurrentAdventure, InventoryItem
 import os
 import logging
+from flask_migrate import Migrate
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SECRET_KEY'] = 'D&D'
 db = SQLAlchemy(app)
 logging.basicConfig(level=logging.INFO)
+migrate = Migrate(app, db)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -85,7 +89,7 @@ def export_pdf():
     app.logger.info('Export PDF request received')
     try:
         from reports.pdf_generator import generate_report
-        data = request.json
+        data = request.get_json()
         app.logger.info('Data for PDF generation: %s', data)
         pdf_filename = generate_report(data)
         app.logger.info('PDF generated successfully')
@@ -100,7 +104,7 @@ def export_pdf():
 
 @app.route('/preview_character', methods=['POST'])
 def preview_character():
-    data = request.json
+    data = request.get_json()
 
     try:
         # Example of simple validation
@@ -123,6 +127,35 @@ def process_character_data(data):
     # Placeholder for your data processing logic
     # For example, you might modify some values or calculate additional fields
     return data
+
+@app.route('/inventory/add', methods=['GET', 'POST'])
+def add_inventory_item():
+    if request.method == 'POST':
+        # Logic to add inventory item
+        return redirect(url_for('inventory'))
+    return render_template('add_inventory_item.html')
+
+@app.route('/add_adventure', methods=['GET', 'POST'])
+def add_adventure():
+    if request.method == 'POST':
+        # Extract data from form submission
+        title = request.form.get('title')
+        description = request.form.get('description')
+        setting = request.form.get('setting')
+        start_date = request.form.get('start_date')  # You may need to parse this to a datetime object
+        end_date = request.form.get('end_date')  # You may need to parse this to a datetime object
+
+        # Create a new adventure object
+        new_adventure = CurrentAdventure(title=title, description=description, setting=setting, start_date=start_date, end_date=end_date)
+
+        # Add to the database
+        db.session.add(new_adventure)
+        db.session.commit()
+
+        return redirect(url_for('some_route'))  # Redirect to a relevant page after submission
+
+    # Render the add_adventure.html template if method is GET
+    return render_template('add_adventure.html')
 
 
 if __name__ == '__main__':

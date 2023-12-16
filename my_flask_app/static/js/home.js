@@ -2,7 +2,6 @@
 function toggleSpellcasting() {
     var classSelect = document.getElementById('class-select');
     var spellSection = document.getElementById('spellcasting-section');
-    // Add all spellcasting classes in this array
     var spellcastingClasses = ['Bard', 'Cleric', 'Druid', 'Sorcerer', 'Warlock', 'Wizard'];
     
     if (spellcastingClasses.includes(classSelect.value)) {
@@ -10,6 +9,10 @@ function toggleSpellcasting() {
     } else {
         spellSection.style.display = 'none';
     }
+}
+
+// Add a new spell input field with a removal option
+function addSpellField() {
 }
 
 // Wait for the DOM to fully load before attaching event handlers
@@ -114,6 +117,9 @@ function generate_pdf_data() {
     var bonds = document.getElementsByName('bonds')[0].value;
     var equipment = document.getElementsByName('equipment')[0].value;
     var gold = document.getElementsByName('gold')[0].value;
+    var adventureTitle = document.getElementsByName('adventure_title')[0].value;
+    var itemName = document.getElementsByName('item_name')[0].value;
+    var itemType = document.getElementsByName('item_type')[0].value;
 
     // Add text to PDF
     doc.text(`Name: ${characterName}`, 10, 10);
@@ -130,6 +136,8 @@ function generate_pdf_data() {
     doc.text(`Bonds: ${bonds}`, 10, 120);
     doc.text(`Equipment: ${equipment}`, 10, 130);
     doc.text(`Gold: ${gold}`, 10, 140);
+    doc.text(`Adventure: ${adventureTitle}`, 10, 150);
+    doc.text(`Item: ${itemName} (${itemType})`, 10, 160);
 
      // Prepare the form data to send to the server
      var formData = {
@@ -146,7 +154,11 @@ function generate_pdf_data() {
         ideals: ideals,
         bonds: bonds,
         equipment: equipment,
-        gold: gold
+        gold: gold,
+        adventureTitle: adventureTitle,
+        itemName: itemName,
+        itemType: itemType
+        
     };
 
         // Send the form data to the server to generate the PDF

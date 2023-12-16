@@ -106,19 +106,67 @@
             <h3>Spells</h3>
             <div id="spells-container">
                 <!-- Initial Spell Inputs Here -->
-            </div>
-            <button type="button" id="add-spell-button">Add Another Spell</button>
+            </div>        
         </div>
 
         <!-- Gold Field -->
         <input type="number" name="gold" placeholder="Gold" min="0" required>
+    <!-- Form for adding a new CurrentAdventure -->
+    <h2>Add New Adventure</h2>
+    <form method="post" action="{{ url_for('add_adventure') }}">
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" name="adventure_title" placeholder="Adventure Title">
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description"></textarea>
+        </div>
+        <div>
+            <label for="setting">Setting:</label>
+            <input type="text" id="setting" name="setting">
+        </div>
+        <div>
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date">
+        </div>
+        <div>
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date">
+        </div>
+        
+    
 
-        <input type="submit" value="Save Character">
+    <!-- Form for adding a new InventoryItem -->
+    <h2>Add Inventory Item</h2>
+    <form method="post" action="{{ url_for('add_inventory_item') }}">
+        <div>
+            <label for="item_name">Item Name:</label>
+            <input type="text" name="item_name" placeholder="Item Name">
+        </div>
+        <div>
+            <label for="item_type">Item Type:</label>
+            <input type="text" id="item_type" name="item_type">
+        </div>
+        <div>
+            <label for="value">Value:</label>
+            <input type="number" id="value" name="value">
+        </div>
+        <div>
+            <label for="properties">Properties:</label>
+            <textarea id="properties" name="properties"></textarea>
+        </div>
+        <div>
+            <label for="character_id">Character ID:</label>
+            <input type="number" id="character_id" name="character_id">
+        </div>
+        
     </form>
+
 
         <!-- Add type="button" to prevent form submission on button click -->
         <button id="preview-pdf" type="button">Preview PDF</button>
-        <button id="export-pdf" type="button">Export to PDF</button>
+
     
         <div id="character-preview"></div>
     

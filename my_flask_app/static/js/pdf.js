@@ -15,6 +15,12 @@ function generate_pdf_data() {
     const ideals = document.querySelector('[name="ideals"]').value;
     const bonds = document.querySelector('[name="bonds"]').value;
     const equipment = document.querySelector('[name="equipment"]').value;
+    const adventureTitle = document.querySelector('[name="adventure_title"]')?.value || '';
+    const itemName = document.querySelector('[name="item_name"]')?.value || '';
+    const itemType = document.querySelector('[name="item_type"]')?.value || '';
+    
+
+    
 
     // Add content to the PDF
     let y = 10; // Initial y coordinate
@@ -43,6 +49,13 @@ function generate_pdf_data() {
     doc.text(`Bonds: ${bonds}`, 10, y);
     y += 10;
     doc.text(`Equipment: ${equipment}`, 10, y);
+    y += 10;
+    doc.text(`Adventure Title: ${adventureTitle}`, 10, y);
+    y += 10;
+    doc.text(`Item Name: ${itemName}`, 10, y);
+    y += 10;
+    doc.text(`Item Type: ${itemType}`, 10, y);
+    y += 10;
 
     // Gather spell details
     const spells = [];

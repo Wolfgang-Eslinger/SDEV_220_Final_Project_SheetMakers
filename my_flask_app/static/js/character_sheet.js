@@ -14,7 +14,10 @@ function previewCharacter() {
             constitution: $('#character_constitution').val(),
             intelligence: $('#character_intelligence').val(),
             wisdom: $('#character_wisdom').val(),
-            charisma: $('#character_charisma').val()
+            charisma: $('#character_charisma').val(),
+            adventure_title: $('#adventure_title').val(), 
+            item_name: $('#item_name').val(), 
+            item_type: $('#item_type').val() 
         }),
         contentType: 'application/json',
         success: function(response) {
